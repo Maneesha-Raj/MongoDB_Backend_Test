@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Appointment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="w-[50%] bg-gray-300 mt-5 mx-auto rounded-lg p-6">
+        <h2 class="font-extrabold text-2xl">Add Appointment</h2>
+        <form action="/addAppointment" method="POST">
+            <label for="tokenID">Token ID:</label><br>
+            <input type="text" id="tokenID" name="tokenID" class="w-full border border-gray-300 rounded py-2 px-3" required><br><br>
+
+            <label for="patientName">Patient name:</label><br>
+            <input type="text" id="patientName" name="patientName" class="w-full border border-gray-300 rounded py-2 px-3" required><br><br>
+
+            <label for="doctorName">Doctor name:</label><br>
+            <input type="text" id="doctorName" name="doctorName" class="w-full border border-gray-300 rounded py-2 px-3" required><br><br>
+            
+            <label for="doa">Date of Appointment:</label><br>
+            <input type="date" id="doa" name="doa" class="w-full border border-gray-300 rounded py-2 px-3" required><br><br>
+
+            <label for="time">Time</label><br>
+            <input type="text" id="time" name="time" class="w-full border border-gray-300 rounded py-2 px-3" required><br><br>
+    
+            <button type="submit" class="bg-sky-400 text-white py-2 px-4 rounded" >Book Appointment</button>
+        </form>
+        </div>
+</body>
+</html>

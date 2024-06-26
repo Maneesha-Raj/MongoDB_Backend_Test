@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Appointment</title>
+</head>
+<body>
+    <nav class="flex justify-end gap-1 items-center pt-3">
+        <a href="/addAppointment">
+            <button class="bg-blue-600 text-white border-none rounded-md py-2 px-3 cursor-pointer">Add Appointment</button>
+        </a>
+        <a href="/deleteAppointment">
+            <button class="bg-sky-400 text-white border-none rounded-md py-2 px-3 cursor-pointer">Delete Appointment</button>
+        </a>
+    </nav>
+
+<div class="w-[50%] bg-gray-300 mt-5 mx-auto rounded-lg p-6">
+    <h2 class="font-extrabold text-2xl">View Appointments</h2>
+    <br>
+    <div>
+        <p id="tokenID"></p>
+        <p id="patientName"></p>
+        <p id="doctorName"></p>
+        <p id="doa"></p>
+        <p id="time"></p>
+    </div>
+</div>
+<script>
+    async function fetchDetails() {
+      const url = window.location.href;
+      console.log(url)
+      const id = window.location.pathname.split('/').pop();
+      console.log(id);
+
+    try {
+    const response = await fetch(`/api/appointment/${id}`);
+    console.log(response)
+    if (!response.ok) {
+        throw new Error('Failed to fetch details');
+    }
+    const data = await response.json(); console.log(data);
+    
+    document.getElementById('tokenId').textContent = data.tokenID;
+    document.getElementById('patientName').textContent = data.patientName;
+    document.getElementById('doctorName').textContent = data.doctorName;
+    document.getElementById('doa').textContent = data. doa ;
+    document.getElementById('time').textContent = data.time;
+} catch (error) {
+    console.error('Error fetching  details:', error);
+    document.body.innerHTML = '<p>Failed to load  details.</p>';
+}
+    }
+
+        document.addEventListener('DOMContentLoaded', fetchDetails);
+        
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Appointment</title>
+</head>
+<body>
+    <nav class="flex justify-end gap-1 items-center pt-3">
+        <a href="/">
+            <button class="bg-sky-400 text-white border-none rounded-md py-2 px-3 cursor-pointer">View </button>
+        </a>
+    </nav>
+
+    <div class="w-[50%] bg-gray-300 mt-5 mx-auto rounded-lg p-6">
+    <h2 class="font-extrabold text-2xl">Delete</h2>
+    <form id="deleteForm" action="/deleteAppointment/:id" method="DELETE">
+        <label for="tokenID">Token ID:</label><br>
+        <input type="text" id="tokenID" name="tokenID" class="w-full border border-gray-300 rounded py-2 px-3" required><br><br>
+
+        <button type="submit" class="bg-sky-400 text-white py-2 px-4 rounded">Delete </button>
+    </form>
+</div>
+
+
+    <script>
+        const deleteForm = document.getElementById('deleteForm');
+        deleteForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(deleteForm);
+            const id = formData.get('tokenID');
+            fetch(`/deleteAppointment/${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(deletedAppointment => {
+                alert(' Deleted successfully!');
+                deleteForm.reset();
+            })
+            .catch(error => console.error('Error deleting appointment', error));
+        });
+    </script>
+</body>
+</html>

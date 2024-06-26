@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Appointment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <nav class="flex justify-end gap-1 items-center pt-3">
+        <a href="/addAppointment.html">
+            <button class="bg-blue-600 text-white border-none rounded-md py-2 px-3 cursor-pointer">Add Appointment</button>
+        </a>
+        <a href="/viewAppointment.html">
+            <button class="bg-sky-400 text-white border-none rounded-md py-2 px-3 cursor-pointer">View Appointments</button>
+        </a>
+        <a href="/deleteAppointment.html">
+            <button class="bg-blue-600 text-white border-none rounded-md py-2 px-3 cursor-pointer">Delete</button>
+        </a>
+    </nav>
+    <h2 class="font-extrabold text-2xl">Hospital App</h2>
+
+    <div class="w-[50%] bg-gray-300 mt-5 mx-auto rounded-lg p-6">
+    <h3 class="text-xl font-semibold mb-4">Search Appointment by tokenID</h3>
+    <form id="searchForm">
+        <label for="tokenID">Token ID:</label><br>
+        <input type="text" id="tokenID" name="tokenID" required class="w-full border border-gray-300 rounded py-2 px-3"><br><br>
+        
+        <button type="submit" class="bg-sky-400 text-white py-2 px-4 rounded">Search</button>
+    </form>
+
+    </div>
+
+    <div id="Appointments" class="w-[50%] bg-white mt-5 mx-auto rounded-lg p-6">
+        <!--  -->
+    </div>
+
+    <script>
+        const searchForm = document.getElementById('searchForm');
+        const DetailsDiv = document.getElementById('Appointments');
+
+        searchForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const searchId = document.getElementById('tokenID').value;
+
+            fetch(`/appointments/${tokenId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Not found');
+                    }
+                    return response.json();
+                })
+                .then(appointment => {
+                    const Appointments = `
+                        <h2 class="font-semibold">Details</h2>
+                        <p>Token ID: ${appointment.id}</p>
+                        <p>PatientName: ${appointment.patientName}</p>
+                        <p>DoctorName: ${appointment.doctorName}</p>
+                        <p>Time: ${appointment.time}</p>
+                        <p>Date Of Joining: ${appointment.doa}</p>
+                        
+                    `;
+                    DetailsDiv.innerHTML = appointment;
+                })
+                .catch(error => {
+                    console.error('Error searching :', error);
+                    DetailsDiv.innerHTML = `<p>No patient found with ID ${tokenId}</p>`;
+                });
+        });
+    </script>
+</body>
+</html>
